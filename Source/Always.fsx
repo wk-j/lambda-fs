@@ -1,0 +1,1 @@
+let always (a:'a) = (fun () -> a)
