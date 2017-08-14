@@ -1,0 +1,1 @@
+let all (f: 'a -> bool) (input: 'a list) = Seq.forall f input
