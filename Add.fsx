@@ -1,0 +1,1 @@
+let inline add x y = x + y
