@@ -27,3 +27,12 @@ let anyPass (f: ('a -> bool) seq) (input: 'a) =
 let ap (fs : ('a -> 'a) seq)  (xs : 'a seq) = 
     xs |> Seq.map (fun x -> Seq.fold (fun a f ->  f a) x fs)
 
+let aperture n xs = 
+    let len = Seq.length xs
+    if n > len then 
+        Seq.empty
+    else
+        seq { 
+            for x in [0 .. len - n] do 
+                yield xs |> Seq.skip x |> Seq.take n 
+        }
