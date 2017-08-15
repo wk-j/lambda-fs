@@ -4,10 +4,10 @@ let addIndexed input = Seq.indexed input
 
 let adjust (f: 'a -> 'a) index (input: 'a list) =  
     [for i, x in Seq.indexed input do
-        if i = index then
+        if i = index then 
             yield f(x)
-        else
-            yield x ]
+        else 
+            yield x]
 
 let all (f: 'a -> bool) (input: 'a list) = 
     Seq.forall f input
@@ -23,3 +23,7 @@ let any f (input: 'a seq) = Seq.exists f input
 
 let anyPass (f: ('a -> bool) seq) (input: 'a) = 
     f |> Seq.exists (fun x -> x(input))
+
+let ap (fs : ('a -> 'a) seq)  (xs : 'a seq) = 
+    xs |> Seq.map (fun x -> Seq.fold (fun a f ->  f a) x fs)
+
