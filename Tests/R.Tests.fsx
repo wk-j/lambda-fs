@@ -1,30 +1,56 @@
+#r "../packages/Expecto/lib/net461/Expecto.dll"
 #load "../Source/R.fsx"
 
-R.add 1 2 = 3 |> printfn "%A"
+open Expecto
 
-R.addIndexed [1;2;3;4] |> printfn "%A"
-R.adjust ((+) 10) 1 [1;2;3;4] |> printfn "%A"
+let tests = 
+    testList "Tests " [
+        test "add" {
+            Expect.equal 4 (R.add 2 2) ""
+        }
 
-R.all ((=) 200) [200; 200; 200] |> printfn "%A"
-R.all ((=) 200) [200; 200; 300] |> printfn "%A"
+        test "addIndexed" {
+            let r = R.addIndexed [1;2;3;4] 
+            let e = [(1,0); (2,1); (3,2); (4,3)] |> List.toSeq
+            Expect.equal e r ""
+        }
 
-R.allPass [(fun x -> x > 0); (fun x -> x < 10)] 5 |> printfn "%A"
-R.allPass [(fun x -> x > 0); (fun x -> x < 10)] 100 |> printfn "%A"
+        test "adjust" {
+            let r = R.adjust ((+) 10) 1 [1;2;3;4] 
+            let e = [1;20;3;4]
+            Expect.equal e r ""
+        }
 
-let v = R.always("")
-obj.ReferenceEquals(v(), v()) |> printfn "%A"
+        test "all" {
+            let r1 = R.all ((=) 200) [200; 200; 200] 
+            Expect.equal true r1 ""
+        }
 
-R.and' true true  = true 
-|> printfn "%A"
+        test "allPass" {
+            let r = R.allPass [(fun x -> x > 0); (fun x -> x < 10)] 5 
+            Expect.equal true r ""
+        }
 
-R.and' false true = false  
-|> printfn "%A"   
+        test "always" {
+            let v = R.always("")
+            let r = obj.ReferenceEquals(v(), v()) 
+            Expect.equal true r ""
+        }
 
-R.any (fun x -> x = 5) [1;2;3;4;5] = true     |> printfn "%A"
-R.any (fun x -> x = 0) [1;2;3;4;5] = false    |> printfn "%A"
+        test "and" {
+            let r = R.and' true true
+            Expect.equal true r  ""
+        }
 
-R.anyPass [(fun x -> x = 100); (fun x -> x = 200)]  200 = true    |> printfn "%A"
-R.anyPass [(fun x -> x = 100); (fun x -> x = 200)]  100 = true    |> printfn "%A"
-R.anyPass [(fun x -> x = 200); (fun x -> x = 200)]  100 = false   |> printfn "%A"
+        test "any" {
+            let r = R.any (fun x -> x = 5) [1;2;3;4;5]
+            Expect.equal true r ""
+        }
 
-// The Secret Rules of Modern Living: Algorithms
+        test "anyPass" {
+            let r = R.anyPass [(fun x -> x = 100); (fun x -> x = 200)]  200 
+            Expect.equal true r ""
+        }
+    ]
+
+runTests defaultConfig tests

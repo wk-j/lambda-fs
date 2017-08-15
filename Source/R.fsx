@@ -1,4 +1,3 @@
-
 let inline add x y = x + y
 
 let addIndexed input = Seq.indexed input
@@ -9,6 +8,7 @@ let adjust (f: 'a -> 'a) index (input: 'a list) =
             yield f(x)
         else
             yield x ]
+
 let all (f: 'a -> bool) (input: 'a list) = 
     Seq.forall f input
     
