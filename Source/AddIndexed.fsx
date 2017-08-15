@@ -1,1 +1,0 @@
-let addIndexed input = Seq.indexed input

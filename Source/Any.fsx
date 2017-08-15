@@ -1,1 +1,0 @@
-let any f (input: 'a seq) = Seq.exists f input

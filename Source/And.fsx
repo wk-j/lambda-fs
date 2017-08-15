@@ -1,1 +1,0 @@
-let and' a b = a && b
