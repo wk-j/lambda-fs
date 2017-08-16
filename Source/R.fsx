@@ -36,3 +36,13 @@ let aperture n xs =
             for e in [0 .. len - n] do 
                 yield xs |> Seq.skip e |> Seq.take n 
         }
+
+let append x xs = Seq.append xs [x]
+
+let apply f xs = f xs
+
+let applySpec (specs: ('a -> 'b) seq)  (xs: 'a seq) = 
+    if (Seq.length specs <> Seq.length xs) then Seq.empty
+    else
+        Seq.map2 (fun f x -> f x) specs xs
+
