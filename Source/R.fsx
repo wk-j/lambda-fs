@@ -47,3 +47,6 @@ let applySpec (specs: ('a -> 'b) seq)  (xs: 'a seq) =
         Seq.map2 (fun f x -> f x) specs xs
 
 let ascend (cons : 'a -> 'b) = cons
+
+let assoc (assoc : ('a -> 'a)) (a : 'a) = 
+    ()
