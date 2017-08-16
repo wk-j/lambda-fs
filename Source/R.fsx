@@ -4,10 +4,7 @@ let addIndexed xs = Seq.indexed xs
 
 let adjust (f: 'a -> 'a) index (xs: 'a seq) =  
     [for i, x in Seq.indexed xs do
-        if i = index then 
-            yield f(x)
-        else 
-            yield x]
+        if i = index then yield f(x) else yield x]
 
 let all (f: 'a -> bool) (xs: 'a seq) = 
     Seq.forall f xs
@@ -39,16 +36,12 @@ let aperture n xs =
 
 let append x xs = Seq.append xs [x]
 
-// APPLY
 let apply f xs = f xs
 
-// APPLY SPEC
 let applySpec (specs: ('a -> 'b) seq)  (xs: 'a seq) = 
     if (Seq.length specs <> Seq.length xs) then Seq.empty
-    else
-        Seq.map2 (fun f x -> f x) specs xs
+    else Seq.map2 (fun f x -> f x) specs xs
 
-// ASCEND
 let ascend (cons : 'a -> 'b) = cons
 
 // TODO
@@ -72,6 +65,7 @@ let call f args = f args
 
 let chain f xs = xs |> Seq.map f |> Seq.collect id
 
+// TODO
 (*
 open System.IO
 open System.Runtime.Serialization.Formatter
