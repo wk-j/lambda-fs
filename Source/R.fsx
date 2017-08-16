@@ -39,14 +39,35 @@ let aperture n xs =
 
 let append x xs = Seq.append xs [x]
 
+// APPLY
 let apply f xs = f xs
 
+// APPLY SPEC
 let applySpec (specs: ('a -> 'b) seq)  (xs: 'a seq) = 
     if (Seq.length specs <> Seq.length xs) then Seq.empty
     else
         Seq.map2 (fun f x -> f x) specs xs
 
+// ASCEND
 let ascend (cons : 'a -> 'b) = cons
 
-let assoc (assoc : ('a -> 'a)) (a : 'a) = 
-    ()
+// TODO
+open FSharp.Reflection
+let assoc field value (record: 'a) = 
+    let info = record.GetType().GetProperty(field)
+    let fields = FSharpValue.GetRecordFields(record)
+    let newRecord = FSharpValue.MakeRecord(typeof<'a>, fields)
+    newRecord
+
+// TODO
+let assocPath = ()
+
+// TODO
+let binary = ()
+
+// TODO
+let bind = ()
+
+let call f args = f args
+
+let chain f xs = xs |> Seq.map f |> Seq.collect id
