@@ -71,3 +71,15 @@ let bind = ()
 let call f args = f args
 
 let chain f xs = xs |> Seq.map f |> Seq.collect id
+
+(*
+open System.IO
+open System.Runtime.Serialization.Formatter
+
+let clone xs = 
+    use stream = new MemoryStream()
+    let formatter = BinaryFormatter()
+    formatter.Context <- new StreamingContext(StreamingContextStatus.Clone)
+*)
+
+let comparator (f: ('a * 'a -> bool)) = f
