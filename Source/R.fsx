@@ -1,28 +1,28 @@
 let inline add x y = x + y
 
-let addIndexed input = Seq.indexed input
+let addIndexed xs = Seq.indexed xs
 
-let adjust (f: 'a -> 'a) index (input: 'a list) =  
-    [for i, x in Seq.indexed input do
+let adjust (f: 'a -> 'a) index (xs: 'a seq) =  
+    [for i, x in Seq.indexed xs do
         if i = index then 
             yield f(x)
         else 
             yield x]
 
-let all (f: 'a -> bool) (input: 'a list) = 
-    Seq.forall f input
+let all (f: 'a -> bool) (xs: 'a seq) = 
+    Seq.forall f xs
     
-let allPass (predicate : ('a -> bool) list) (input: 'a) = 
-    predicate |> Seq.forall (fun f -> f input)
+let allPass (ps : ('a -> bool) seq) (x: 'a) = 
+    ps |> Seq.forall (fun f -> f x)
     
 let always (a:'a) = (fun () -> a)
 
 let and' a b = a && b
 
-let any f (input: 'a seq) = Seq.exists f input
+let any f (xs: 'a seq) = Seq.exists f xs
 
-let anyPass (f: ('a -> bool) seq) (input: 'a) = 
-    f |> Seq.exists (fun x -> x(input))
+let anyPass (fs: ('a -> bool) seq) (xs: 'a) = 
+    fs |> Seq.exists (fun x -> x xs)
 
 let ap (fs : ('a -> 'a) seq)  (xs : 'a seq) = 
     xs |> Seq.map (fun x -> Seq.fold (fun a f ->  f a) x fs)
@@ -33,6 +33,6 @@ let aperture n xs =
         Seq.empty
     else
         seq { 
-            for x in [0 .. len - n] do 
-                yield xs |> Seq.skip x |> Seq.take n 
+            for e in [0 .. len - n] do 
+                yield xs |> Seq.skip e |> Seq.take n 
         }
