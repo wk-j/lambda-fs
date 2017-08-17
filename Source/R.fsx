@@ -80,6 +80,14 @@ let clone xs =
 
 let comparator (f: ('a * 'a -> bool)) = f
 
-let inline complement (f : (obj -> bool)) x = f x |> not
+let complement (f : (obj -> bool)) x = f x |> not
 
 let compose  = (>>)
+
+// TODO
+let composeK = ()
+
+// TODO
+let composeP = ()
+
+let concat x = Seq.concat x
