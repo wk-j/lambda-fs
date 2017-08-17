@@ -79,3 +79,5 @@ let clone xs =
 *)
 
 let comparator (f: ('a * 'a -> bool)) = f
+
+let inline complement (f : (obj -> bool)) x = f x |> not
