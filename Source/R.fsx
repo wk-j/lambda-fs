@@ -1,3 +1,5 @@
+let __ f x = f x
+
 let inline add x y = x + y
 
 let addIndexed xs = Seq.indexed xs
@@ -50,3 +52,4 @@ let ascend (cons : 'a -> 'b) = cons
 
 let assoc (assoc : ('a -> 'a)) (a : 'a) = 
     ()
+
